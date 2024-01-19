@@ -39,6 +39,20 @@ public class UserController {
         this.userService = userService;
     }
 
+
+    @PostMapping("/Send-OTP")
+    public ResponseEntity<?> sendOTP() {
+        // Generate and send OTP (you need to implement this logic)
+        String otp = userService.generateOtpForUser();
+        AuthenticationResponse response = new AuthenticationResponse(200, "OTP Sent successfully!", otp);
+
+        return ResponseEntity.ok(response);
+    }
+
+
+
+
+
     @PostMapping("/Register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegisterDto userRegisterDto) {
         try {
@@ -47,7 +61,7 @@ public class UserController {
             User registeredUser = userService.registerUser(userRegisterDto);
 
             // Generate and send OTP (you need to implement this logic)
-            String otp = userService.generateOtpForUser(registeredUser);
+            String otp = userService.generateOtpForUser();
 
             AuthenticationResponse response = new AuthenticationResponse(200, "User registered successfully!", otp);
 

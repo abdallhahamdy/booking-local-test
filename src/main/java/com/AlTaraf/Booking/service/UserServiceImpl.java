@@ -157,9 +157,8 @@ public class UserServiceImpl implements UserService {
     }
 
     // Example method to generate OTP (replace with your implementation)
-    public String generateOtpForUser(User user) {
-        // Your OTP generation logic here (e.g., using a library or custom logic)
-        // For simplicity, let's assume a random 6-digit OTP
-        return String.valueOf((int) (Math.random() * 900000) + 100000);
+    public String generateOtpForUser() {
+        // For simplicity, let's assume a random 4-digit OTP
+        return String.valueOf((int) (Math.random() * 9000) + 1000);
     }
 }

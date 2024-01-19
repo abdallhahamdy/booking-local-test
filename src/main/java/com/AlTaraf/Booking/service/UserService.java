@@ -12,6 +12,6 @@ public interface UserService {
     List<UserRegisterDto> getAllUsers();
     void deleteUser(Long id);
 
-    String generateOtpForUser (User user);
+    String generateOtpForUser ();
 }
 
