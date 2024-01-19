@@ -19,7 +19,7 @@ public interface UserService {
 
     User registerUser(UserRegisterDto userRegisterDto);
 //    User updateUser(Long id, UserRegisterDto userRegisterDto);
-//    UserRegisterDto getUserById(Long id);
+    User getUserById(Long id);
 //    List<UserRegisterDto> getAllUsers();
 //    void deleteUser(Long id);
 

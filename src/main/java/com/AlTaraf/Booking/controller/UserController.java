@@ -140,6 +140,18 @@ public class UserController {
 //                : ResponseEntity.notFound().build();
 //    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {
+        User user = userService.getUserById(id);
+
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            ApiResponse response = new ApiResponse(404, "Not Found!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+    }
+
 //    @GetMapping("/all")
 //    public ResponseEntity<?> getAllUsers() {
 //        List<UserRegisterDto> users = userService.getAllUsers();
