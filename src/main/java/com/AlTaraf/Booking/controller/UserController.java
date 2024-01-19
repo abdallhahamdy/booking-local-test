@@ -39,6 +39,7 @@ public class UserController {
 
     @PostMapping("/Send-OTP")
     public ResponseEntity<?> sendOTP() {
+
         // Generate and send OTP (you need to implement this logic)
         String otp = userService.generateOtpForUser();
         if (otp != null ) {
@@ -81,50 +82,20 @@ public class UserController {
         }
 
 
-//        if (isPhoneAvailable) {
-//            ApiResponse response = new ApiResponse(204, "Phone is already taken.");
-//
-//            return ResponseEntity.status(HttpStatus.CONFLICT)
-//                    .body(response);
-//
-//        } else {
-//            if (isEmailAvailable) {
-//                ApiResponse response = new ApiResponse(204, "Email is already taken.");
-//
-//                return ResponseEntity.status(HttpStatus.CONFLICT)
-//                        .body(response);
-//
-//            }
-//        }
-
-
-
         ApiResponse response = new ApiResponse(200, "User is available.");
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
-//        else {
-//            ApiResponse response = new ApiResponse(200, "User is available.");
-//            return ResponseEntity.status(HttpStatus.OK).body(response);
-//        }
-
     }
 
     @PostMapping("/Register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegisterDto userRegisterDto) {
-        try {
 
-            // Perform user registration
-            userService.registerUser(userRegisterDto);
+        // Perform user registration
+        userService.registerUser(userRegisterDto);
 
-            ApiResponse response = new ApiResponse(200, "User with the same email, phone number, and role already exists.");
+        ApiResponse response = new ApiResponse(200, "User Registered Successfully!");
 
-            return ResponseEntity.ok(response);
-
-        } catch (Exception e) {
-            ApiResponse errorResponse = new ApiResponse(400, "Error registering user: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(errorResponse);
-        }
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
