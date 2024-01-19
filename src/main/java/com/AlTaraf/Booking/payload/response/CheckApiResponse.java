@@ -5,7 +5,8 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ApiResponse {
+public class CheckApiResponse {
     private int statusCode;
     private String message;
+    private Boolean check;
 }
