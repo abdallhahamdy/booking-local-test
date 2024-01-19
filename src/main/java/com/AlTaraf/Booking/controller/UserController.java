@@ -4,6 +4,7 @@ import com.AlTaraf.Booking.dto.UserRegisterDto;
 import com.AlTaraf.Booking.entity.User;
 import com.AlTaraf.Booking.payload.request.CheckPhoneNumberAndEmail;
 import com.AlTaraf.Booking.payload.request.LoginRequest;
+import com.AlTaraf.Booking.payload.request.PasswordResetDto;
 import com.AlTaraf.Booking.payload.response.ApiResponse;
 import com.AlTaraf.Booking.payload.response.AuthenticationResponse;
 import com.AlTaraf.Booking.payload.response.JwtResponse;
@@ -119,6 +120,22 @@ public class UserController {
                 userDetails.getPhone(),
                 userDetails.getCity(),
                 roles));
+    }
+
+    @PutMapping("/forget-password/{phone}")
+    public ResponseEntity<?> resetPassword(
+            @PathVariable String phone,
+            @RequestBody PasswordResetDto passwordResetDto) {
+
+            // Perform password reset
+            try {
+                userService.resetPasswordByPhone(phone, passwordResetDto);
+                return ResponseEntity.ok(new ApiResponse(200, "Password reset successfully."));
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new ApiResponse(400, "Failed to reset password: " + e.getMessage()));
+            }
+
     }
 
 //    @PutMapping("/update/{id}")
