@@ -2,6 +2,7 @@ package com.AlTaraf.Booking.controller;
 
 import com.AlTaraf.Booking.dto.UserRegisterDto;
 import com.AlTaraf.Booking.entity.User;
+import com.AlTaraf.Booking.payload.request.CheckPhoneNumberAndEmail;
 import com.AlTaraf.Booking.payload.request.LoginRequest;
 import com.AlTaraf.Booking.payload.response.ApiResponse;
 import com.AlTaraf.Booking.payload.response.AuthenticationResponse;
@@ -19,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,11 +41,73 @@ public class UserController {
     public ResponseEntity<?> sendOTP() {
         // Generate and send OTP (you need to implement this logic)
         String otp = userService.generateOtpForUser();
-        AuthenticationResponse response = new AuthenticationResponse(200, "OTP Sent successfully!", otp);
+        if (otp != null ) {
+            AuthenticationResponse response = new AuthenticationResponse(200, "OTP Sent successfully!", otp);
+            return ResponseEntity.ok(response);
+        } else {
+            ApiResponse response = new ApiResponse(404, "Not Found!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
 
-        return ResponseEntity.ok(response);
     }
 
+
+    @GetMapping("/check-availability")
+    public ResponseEntity<?> checkAvailability(@RequestParam(value = "email") String email,
+                                               @RequestParam(value = "phone") String phone,
+                                               @RequestParam(value = "roleIds") Collection<Long> roleIds) {
+
+        boolean existsByEmailAndRolesOrPhoneNumberAndRoles = userService.existsByEmailAndRolesOrPhoneNumberAndRoles(email, phone, roleIds);
+        boolean isEmailAvailable = userService.existsByEmail(email);
+        boolean isPhoneAvailable = userService.existsByPhone(phone);
+
+
+        if (existsByEmailAndRolesOrPhoneNumberAndRoles) {
+            ApiResponse response = new ApiResponse(204, "User with the same email, phone number, and role already exists.");
+
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(response);
+        } else if (isPhoneAvailable){
+
+            ApiResponse response = new ApiResponse(204, "Phone is already taken.");
+
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(response);
+        } else if (isEmailAvailable){
+            ApiResponse response = new ApiResponse(204, "Email is already taken.");
+
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(response);
+        }
+
+
+//        if (isPhoneAvailable) {
+//            ApiResponse response = new ApiResponse(204, "Phone is already taken.");
+//
+//            return ResponseEntity.status(HttpStatus.CONFLICT)
+//                    .body(response);
+//
+//        } else {
+//            if (isEmailAvailable) {
+//                ApiResponse response = new ApiResponse(204, "Email is already taken.");
+//
+//                return ResponseEntity.status(HttpStatus.CONFLICT)
+//                        .body(response);
+//
+//            }
+//        }
+
+
+
+        ApiResponse response = new ApiResponse(200, "User is available.");
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+//        else {
+//            ApiResponse response = new ApiResponse(200, "User is available.");
+//            return ResponseEntity.status(HttpStatus.OK).body(response);
+//        }
+
+    }
 
     @PostMapping("/Register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegisterDto userRegisterDto) {
@@ -52,7 +116,7 @@ public class UserController {
             // Perform user registration
             userService.registerUser(userRegisterDto);
 
-            ApiResponse response = new ApiResponse(200, "User registered successfully!");
+            ApiResponse response = new ApiResponse(200, "User with the same email, phone number, and role already exists.");
 
             return ResponseEntity.ok(response);
 
