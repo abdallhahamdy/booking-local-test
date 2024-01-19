@@ -25,19 +25,14 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-    private final UserService userService;
+    @Autowired
+    UserService userService;
 
     @Autowired
     AuthenticationManager authenticationManager;
 
     @Autowired
     JwtUtils jwtUtils;
-
-    // Constructor
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
 
     @PostMapping("/Send-OTP")
@@ -50,20 +45,14 @@ public class UserController {
     }
 
 
-
-
-
     @PostMapping("/Register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegisterDto userRegisterDto) {
         try {
 
             // Perform user registration
-            User registeredUser = userService.registerUser(userRegisterDto);
+            userService.registerUser(userRegisterDto);
 
-            // Generate and send OTP (you need to implement this logic)
-            String otp = userService.generateOtpForUser();
-
-            AuthenticationResponse response = new AuthenticationResponse(200, "User registered successfully!", otp);
+            ApiResponse response = new ApiResponse(200, "User registered successfully!");
 
             return ResponseEntity.ok(response);
 
@@ -97,46 +86,46 @@ public class UserController {
                 roles));
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UserRegisterDto userRegisterDto) {
-        try {
-            userService.updateUser(id, userRegisterDto);
-            return ResponseEntity.ok("User updated successfully!");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error updating user: " + e.getMessage());
-        }
-    }
+//    @PutMapping("/update/{id}")
+//    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UserRegisterDto userRegisterDto) {
+//        try {
+//            userService.updateUser(id, userRegisterDto);
+//            return ResponseEntity.ok("User updated successfully!");
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body("Error updating user: " + e.getMessage());
+//        }
+//    }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserRegisterDto> getUserById(@PathVariable Long id) {
-        UserRegisterDto userDto = userService.getUserById(id);
-        return userDto != null
-                ? ResponseEntity.ok(userDto)
-                : ResponseEntity.notFound().build();
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<UserRegisterDto> getUserById(@PathVariable Long id) {
+//        UserRegisterDto userDto = userService.getUserById(id);
+//        return userDto != null
+//                ? ResponseEntity.ok(userDto)
+//                : ResponseEntity.notFound().build();
+//    }
 
-    @GetMapping("/all")
-    public ResponseEntity<?> getAllUsers() {
-        List<UserRegisterDto> users = userService.getAllUsers();
-        if (!users.isEmpty()) {
-            return ResponseEntity.ok(users);
-        } else {
-            ApiResponse response = new ApiResponse(204, "No Content for Roles!");
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(response);
-        }
-    }
+//    @GetMapping("/all")
+//    public ResponseEntity<?> getAllUsers() {
+//        List<UserRegisterDto> users = userService.getAllUsers();
+//        if (!users.isEmpty()) {
+//            return ResponseEntity.ok(users);
+//        } else {
+//            ApiResponse response = new ApiResponse(204, "No Content for Roles!");
+//            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(response);
+//        }
+//    }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
-        try {
-            userService.deleteUser(id);
-            ApiResponse response = new ApiResponse(200, "Role deleted successfully!");
-            return ResponseEntity.status(HttpStatus.OK).body(response);
-        } catch (Exception e) {
-            ApiResponse response = new ApiResponse(404, "Not Found!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-        }
-        }
+//    @DeleteMapping("/delete/{id}")
+//    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+//        try {
+//            userService.deleteUser(id);
+//            ApiResponse response = new ApiResponse(200, "Role deleted successfully!");
+//            return ResponseEntity.status(HttpStatus.OK).body(response);
+//        } catch (Exception e) {
+//            ApiResponse response = new ApiResponse(404, "Not Found!");
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+//        }
+//        }
 
     }
