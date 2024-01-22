@@ -1,5 +1,6 @@
 package com.AlTaraf.Booking.payload.response;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

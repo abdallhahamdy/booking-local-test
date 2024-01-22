@@ -32,6 +32,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmailAndRolesOrPhoneNumberAndRoles(@Param("email") String email,
                                                        @Param("phone") String phone,
                                                        @Param("roleIds") Collection<Long> roleIds);
-
 }
 

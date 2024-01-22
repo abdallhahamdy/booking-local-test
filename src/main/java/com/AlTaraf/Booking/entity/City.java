@@ -10,7 +10,6 @@ import java.util.Set;
 @Data
 @Entity
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-
 public class City {
 
     @Id
@@ -18,7 +17,7 @@ public class City {
     private Long id;
 
     @Column(name = "city", nullable = false, unique = true)
-    private String city;  // Renamed the property to avoid conflict with the entity name
+    private String cityName;  // Renamed the property to avoid conflict with the entity name
 
     @Column(name = "arabic_name")
     private String arabicCityName;

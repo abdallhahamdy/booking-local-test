@@ -17,12 +17,14 @@ public interface UserService {
 
     Boolean existsByPhone(String phone);
 
-
     User registerUser(UserRegisterDto userRegisterDto);
-//    User updateUser(Long id, UserRegisterDto userRegisterDto);
+
     User getUserById(Long id);
 
     void resetPasswordByPhone(String phone, PasswordResetDto passwordResetDto);
+
+//    User updateUser(Long id, UserRegisterDto userRegisterDto);
+//    UserRegisterDto getUserById(Long id);
 //    List<UserRegisterDto> getAllUsers();
 //    void deleteUser(Long id);
 
