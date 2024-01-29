@@ -1,16 +1,11 @@
 package com.AlTaraf.Booking.controller;
 
 import com.AlTaraf.Booking.dto.CityDto;
-import com.AlTaraf.Booking.dto.RoleDto;
-import com.AlTaraf.Booking.entity.City;
-import com.AlTaraf.Booking.entity.Role;
 import com.AlTaraf.Booking.mapper.CityMapper;
-import com.AlTaraf.Booking.mapper.RoleMapper;
 import com.AlTaraf.Booking.payload.response.ApiResponse;
 import com.AlTaraf.Booking.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

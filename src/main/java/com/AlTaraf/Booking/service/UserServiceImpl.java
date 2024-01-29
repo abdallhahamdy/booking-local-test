@@ -1,14 +1,11 @@
 package com.AlTaraf.Booking.service;
 
 import com.AlTaraf.Booking.dto.CityDto;
-import com.AlTaraf.Booking.dto.RoleDto;
 import com.AlTaraf.Booking.dto.UserRegisterDto;
 import com.AlTaraf.Booking.entity.City;
-import com.AlTaraf.Booking.entity.ERole;
 import com.AlTaraf.Booking.entity.Role;
 import com.AlTaraf.Booking.entity.User;
-import com.AlTaraf.Booking.exception.DuplicateUserException;
-import com.AlTaraf.Booking.exception.UserNotFoundException;
+import com.AlTaraf.Booking.entity.enums.ERole;
 import com.AlTaraf.Booking.mapper.CityMapper;
 import com.AlTaraf.Booking.mapper.UserMapper;
 import com.AlTaraf.Booking.payload.request.PasswordResetDto;
@@ -21,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {

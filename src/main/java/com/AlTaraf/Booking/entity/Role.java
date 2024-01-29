@@ -1,6 +1,6 @@
 package com.AlTaraf.Booking.entity;
 
-import com.sun.jdi.PrimitiveValue;
+import com.AlTaraf.Booking.entity.enums.ERole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
