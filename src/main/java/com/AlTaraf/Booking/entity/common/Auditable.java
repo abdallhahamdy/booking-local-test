@@ -1,4 +1,4 @@
-package com.AlTaraf.Booking.entity;
+package com.AlTaraf.Booking.entity.common;
 
 import static jakarta.persistence.TemporalType.TIMESTAMP;
 
