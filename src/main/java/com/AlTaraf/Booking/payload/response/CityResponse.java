@@ -11,6 +11,14 @@ public class CityResponse {
         this.apiResponse = apiResponse;
     }
 
+    public void setCityDto(CityDto cityDto) {
+        this.cityDto = cityDto;
+    }
+
+    public void setApiResponse(ApiResponse apiResponse) {
+        this.apiResponse = apiResponse;
+    }
+
     public CityDto getCityDto() {
         return cityDto;
     }
